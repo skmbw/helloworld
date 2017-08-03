@@ -31,6 +31,9 @@ public abstract class GenericGrpcTask<Params, Progress, Result> extends AsyncTas
         preExecute();
     }
 
+    /**
+     * AsyncTask.onPreExecute
+     */
     public abstract void preExecute();
 
     @Override
@@ -41,6 +44,11 @@ public abstract class GenericGrpcTask<Params, Progress, Result> extends AsyncTas
         return background(params);
     }
 
+    /**
+     * AsyncTask.doInBackground
+     * @param params
+     * @return
+     */
     public abstract Result background(Params... params);
 
     @Override
@@ -53,6 +61,10 @@ public abstract class GenericGrpcTask<Params, Progress, Result> extends AsyncTas
         postExecute(result);
     }
 
+    /**
+     * AsyncTask.onPostExecute
+     * @param result
+     */
     public abstract void postExecute(Result result);
 
 

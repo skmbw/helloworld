@@ -28,6 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fuuzii.grpc.GenericGrpcTask;
+
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.examples.helloworld.GreeterGrpc;
@@ -66,27 +68,21 @@ public class HelloworldActivity extends AppCompatActivity {
         new GrpcTask().execute();
     }
 
-    private class GrpcTask extends AsyncTask<Void, Void, String> {
-        private String mHost;
+    private class GrpcTask extends GenericGrpcTask<Void, Void, String> {
         private String mMessage;
-        private int mPort;
-        private ManagedChannel mChannel;
 
         @Override
-        protected void onPreExecute() {
-            mHost = mHostEdit.getText().toString();
+        public void preExecute() {
+//            mHost = mHostEdit.getText().toString();
             mMessage = mMessageEdit.getText().toString();
-            String portStr = mPortEdit.getText().toString();
-            mPort = TextUtils.isEmpty(portStr) ? 0 : Integer.valueOf(portStr);
+//            String portStr = mPortEdit.getText().toString();
+//            mPort = TextUtils.isEmpty(portStr) ? 0 : Integer.valueOf(portStr);
             mResultText.setText("");
         }
 
         @Override
-        protected String doInBackground(Void... nothing) {
+        public String background(Void... nothing) {
             try {
-                mChannel = ManagedChannelBuilder.forAddress(mHost, mPort)
-                    .usePlaintext(true)
-                    .build();
                 GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(mChannel);
                 HelloRequest message = HelloRequest.newBuilder().setName(mMessage).build();
                 HelloReply reply = stub.sayHello(message);
@@ -101,12 +97,7 @@ public class HelloworldActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            try {
-                mChannel.shutdown().awaitTermination(1, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+        public void postExecute(String result) {
             mResultText.setText(result);
             mSendButton.setEnabled(true);
         }
