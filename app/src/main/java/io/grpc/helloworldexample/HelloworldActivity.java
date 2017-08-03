@@ -49,6 +49,7 @@ public class HelloworldActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helloworld);
+        // 这个button没有绑定单击事件，实在布局文件中绑定的android:onClick="sendMessage"
         mSendButton = (Button) findViewById(R.id.send_button);
         mHostEdit = (EditText) findViewById(R.id.host_edit_text);
         mPortEdit = (EditText) findViewById(R.id.port_edit_text);
@@ -57,6 +58,7 @@ public class HelloworldActivity extends AppCompatActivity {
         mResultText.setMovementMethod(new ScrollingMovementMethod());
     }
 
+    // 布局文件中绑定的button的响应事件
     public void sendMessage(View view) {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(mHostEdit.getWindowToken(), 0);
