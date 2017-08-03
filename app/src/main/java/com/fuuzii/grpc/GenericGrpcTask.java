@@ -18,7 +18,7 @@ public abstract class GenericGrpcTask<Params, Progress, Result> extends AsyncTas
 
     public GenericGrpcTask() {
         mHost = "10.70.7.244";
-        mPort = 50015;
+        mPort = 50051;
     }
 
     public GenericGrpcTask(String host, int port) {
