@@ -153,4 +153,9 @@ public abstract class BasicActivity<T> extends AppCompatActivity implements Defa
     public void complete() {
 
     }
+
+    @Override
+    public void load(Object data) {
+
+    }
 }

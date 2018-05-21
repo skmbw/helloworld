@@ -7,6 +7,9 @@ import io.reactivex.Observable;
 /**
  * Presenter的通用代码的实现，简化编码。
  *
+ * @param <IN> 表示参数值类型的泛型参数
+ * @param <OUT> 表示服务端返回值类型的泛型参数
+ *
  * @author yinlei
  * @since 2017/9/8 16:50
  */
@@ -111,7 +114,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
      *
      * @param observable 观察者
      */
-    public <V> void doDetail(final Observable<OUT> observable) {
+    public <V> void doLoad(final Observable<V> observable) {
         observable.doOnSubscribe(disposable -> mDefaultView.showLoading())
                 .subscribe(response -> {
                     Log.d(TAG, "detail: success");
@@ -119,7 +122,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
                         Log.d(TAG, "detail: JsonBean is null.");
                         mDefaultView.showError();
                     } else {
-                        mDefaultView.detail(response);
+                        mDefaultView.load(response);
                     }
                 }, throwable -> {
                     Log.e(TAG, "doDetail: error.", throwable);

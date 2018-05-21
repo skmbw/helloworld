@@ -2,6 +2,7 @@ package io.grpc.helloworldexample;
 
 /**
  * 基础 Presenter
+ * @param <T> 表示参数值类型的泛型参数
  *
  * @author yinlei
  * @since 2017-8-29

@@ -3,6 +3,8 @@ package io.grpc.helloworldexample;
 /**
  * 绑定数据的界面接口
  *
+ * @param <T> 表示服务端返回值类型的泛型参数
+ *
  * @author yinlei
  * @since 2016/9/26.
  */
@@ -33,6 +35,13 @@ public interface DefaultView<T> extends BaseView {
      * @param data presenter提供的数据
      */
     void detail(T data);
+
+    /**
+     * 通用的加载数据
+     *
+     * @param data presenter提供的数据
+     */
+    void load(Object data);
 
     void error(Throwable throwable);
 
