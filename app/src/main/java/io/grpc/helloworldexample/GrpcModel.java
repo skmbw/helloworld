@@ -13,7 +13,7 @@ public class GrpcModel {
     protected Channel mChannel;
 
     public GrpcModel() {
-        mChannel = ManagedChannelBuilder.forAddress("127.0.0.1", 50051)
+        mChannel = ManagedChannelBuilder.forAddress("10.70.7.244", 50051)
                 .usePlaintext(true)
                 .build();
     }

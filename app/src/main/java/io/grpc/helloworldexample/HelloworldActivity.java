@@ -76,7 +76,7 @@ public class HelloworldActivity extends BasicActivity<HelloReply> implements Hel
     public void sendMessage(View view) {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(mHostEdit.getWindowToken(), 0);
-        mSendButton.setEnabled(false);
+//        mSendButton.setEnabled(false);
 //        new GrpcTask().execute();
         HelloRequest.Builder builder = HelloRequest.newBuilder()
                 .setName("尹雷啊123");
