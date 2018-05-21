@@ -17,11 +17,9 @@
 package io.grpc.helloworldexample;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -30,25 +28,29 @@ import android.widget.TextView;
 
 import com.fuuzii.grpc.GenericGrpcTask;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import io.grpc.examples.helloworld.GreeterGrpc;
 import io.grpc.examples.helloworld.HelloReply;
 import io.grpc.examples.helloworld.HelloRequest;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.concurrent.TimeUnit;
+public class HelloworldActivity extends BasicActivity<HelloReply> implements HelloWorldView {
+    private static final String TAG = "HelloworldActivity";
 
-public class HelloworldActivity extends AppCompatActivity {
     private Button mSendButton;
     private EditText mHostEdit;
     private EditText mPortEdit;
     private EditText mMessageEdit;
     private TextView mResultText;
 
+    private HelloWorldPresenter mHelloWorldPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        HelloWorldModel helloWorldModel = new HelloWorldModel();
+        mHelloWorldPresenter = new HelloWorldPresenter(this, helloWorldModel);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_helloworld);
         // 这个button没有绑定单击事件，实在布局文件中绑定的android:onClick="sendMessage"
@@ -60,12 +62,30 @@ public class HelloworldActivity extends AppCompatActivity {
         mResultText.setMovementMethod(new ScrollingMovementMethod());
     }
 
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    public int layoutResId() {
+        return 0;
+    }
+
     // 布局文件中绑定的button的响应事件
     public void sendMessage(View view) {
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                 .hideSoftInputFromWindow(mHostEdit.getWindowToken(), 0);
         mSendButton.setEnabled(false);
-        new GrpcTask().execute();
+//        new GrpcTask().execute();
+        HelloRequest.Builder builder = HelloRequest.newBuilder()
+                .setName("尹雷啊123");
+        mHelloWorldPresenter.list(builder.build());
+    }
+
+    @Override
+    public void finishRefresh() {
+
     }
 
     private class GrpcTask extends GenericGrpcTask<Void, Void, String> {
@@ -101,5 +121,11 @@ public class HelloworldActivity extends AppCompatActivity {
             mResultText.setText(result);
             mSendButton.setEnabled(true);
         }
+    }
+
+    @Override
+    public void moreData(HelloReply bean) {
+        Log.d(TAG, bean.getMessage());
+        super.moreData(bean);
     }
 }
