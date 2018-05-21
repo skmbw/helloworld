@@ -126,6 +126,8 @@ public class HelloworldActivity extends BasicActivity<HelloReply> implements Hel
     @Override
     public void moreData(HelloReply bean) {
         Log.d(TAG, bean.getMessage());
-        super.moreData(bean);
+        mResultText.setText(bean.getMessage());
+        mSendButton.setEnabled(true);
+
     }
 }
