@@ -4,7 +4,7 @@ import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
 
 /**
- *
+ * 构建Grpc通信的channel
  *
  * @author yinlei
  * @since 2018/5/21 10:19
