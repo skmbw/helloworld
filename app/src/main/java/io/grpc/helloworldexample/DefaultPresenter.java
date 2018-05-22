@@ -29,7 +29,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
      * @param refresh 是否是刷新
      */
     public void doGetData(final Observable<OUT> observable, final boolean refresh) {
-        observable.doOnSubscribe(disposable -> mDefaultView.showLoading())
+        RxUtils.on(observable).doOnSubscribe(disposable -> mDefaultView.showLoading())
                 .subscribe(jsonBean -> {
                     Log.d(TAG, "getData: success");
                     if (jsonBean == null) {
@@ -63,7 +63,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
      * @param observable 观察者
      */
     public void doList(final Observable<OUT> observable) {
-        observable.doOnSubscribe(disposable -> mDefaultView.showLoading())
+        RxUtils.on(observable).doOnSubscribe(disposable -> mDefaultView.showLoading())
                 .subscribe(response -> {
                     Log.d(TAG, "list: success");
                     if (response == null) {
@@ -91,7 +91,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
      * @param observable 观察者
      */
     public void doGet(final Observable<OUT> observable) {
-        observable.doOnSubscribe(disposable -> mDefaultView.showLoading())
+        RxUtils.on(observable).doOnSubscribe(disposable -> mDefaultView.showLoading())
                 .subscribe(response -> {
                     Log.d(TAG, "detail: success");
                     if (response == null) {
@@ -115,7 +115,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
      * @param observable 观察者
      */
     public <V> void doLoad(final Observable<V> observable) {
-        observable.doOnSubscribe(disposable -> mDefaultView.showLoading())
+        RxUtils.on(observable).doOnSubscribe(disposable -> mDefaultView.showLoading())
                 .subscribe(response -> {
                     Log.d(TAG, "detail: success");
                     if (response == null) {
@@ -134,7 +134,7 @@ public abstract class DefaultPresenter<IN, OUT> implements BasePresenter<IN> {
     }
 
     public void doAdd(final Observable<OUT> observable) {
-        observable.subscribe(jsonBean -> {
+        RxUtils.on(observable).subscribe(jsonBean -> {
             Log.d(TAG, "accept: ");
             mDefaultView.message(jsonBean);
         }, throwable -> {
