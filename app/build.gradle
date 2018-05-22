@@ -44,14 +44,14 @@ android {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.3.0'
+        artifact = 'com.google.protobuf:protoc:3.5.1-1'
     }
     plugins {
         javalite {
             artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
         }
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.5.0' // CURRENT_GRPC_VERSION
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.12.0' // CURRENT_GRPC_VERSION
         }
     }
     generateProtoTasks {
@@ -72,10 +72,12 @@ dependencies {
 //    compile 'com.android.support:multidex:1.0.2'// 从google上下载不下来，被墙
     implementation files("libs/android-support-multidex.jar")
     // You need to build grpc-java to obtain these libraries below.
-    compile 'io.grpc:grpc-okhttp:1.5.0' // CURRENT_GRPC_VERSION
-    compile 'io.grpc:grpc-protobuf-lite:1.5.0' // CURRENT_GRPC_VERSION
-    compile 'io.grpc:grpc-stub:1.5.0' // CURRENT_GRPC_VERSION
+    compile 'io.grpc:grpc-okhttp:1.12.0' // CURRENT_GRPC_VERSION
+    compile 'io.grpc:grpc-protobuf-lite:1.12.0' // CURRENT_GRPC_VERSION
+    compile 'io.grpc:grpc-stub:1.12.0' // CURRENT_GRPC_VERSION
     compile 'javax.annotation:javax.annotation-api:1.2'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.13'
+    compile 'com.squareup.retrofit2:converter-protobuf:2.4.0'
+    compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
 }
